@@ -1,16 +1,19 @@
 import useSWR from "swr";
 import { UserInformation } from "../index.d";
 
-const useUserInformation = (
+const useAllUserInformation = (
 ): {
     userInformation: Array<UserInformation>;
     isLoading: boolean;
     isError: boolean;
 } => {
+    const fetcher = (url) => fetch(url).then((res) => res.json());
+
     const { data, error } = useSWR(
         () =>
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/user/all`
-    )
+        
+    );
 
     return {
         userInformation: data,
@@ -19,4 +22,4 @@ const useUserInformation = (
     }
 }
 
-export default useUserInformation;
+export default useAllUserInformation;
